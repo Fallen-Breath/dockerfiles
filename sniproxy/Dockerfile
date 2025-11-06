@@ -3,7 +3,8 @@ FROM ubuntu:24.04 AS builder
 RUN <<EOT
 set -eux
 apt update
-apt install -y autotools-dev cdbs debhelper dh-autoreconf dpkg-dev gettext libev-dev libpcre2-dev libudns-dev pkg-config fakeroot devscripts unzip wget
+apt install -y autotools-dev cdbs debhelper dh-autoreconf dpkg-dev gettext libev-dev libpcre2-dev libudns-dev pkg-config fakeroot devscripts
+apt install -y unzip wget
 
 mkdir /build
 cd /build
@@ -20,7 +21,7 @@ COPY --from=builder /build/sniproxy_0.7.0_amd64.deb /sniproxy_0.7.0_amd64.deb
 RUN <<EOT
 set -eux
 apt update
-apt install -y libudns0t64 libev4t64
+apt install -y tzdata libudns0t64 libev4t64
 
 dpkg -i /sniproxy_0.7.0_amd64.deb
 rm -f /sniproxy_0.7.0_amd64.deb
